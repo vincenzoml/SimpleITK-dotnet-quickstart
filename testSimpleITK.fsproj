@@ -26,6 +26,9 @@
     <SimpleITKNative Condition="'$(RuntimeIdentifier)' == 'osx-x64'">lib/$(SimpleITKFullName)/libSimpleITKCSharpNative.so</SimpleITKNative>
     <SimpleITKNative Condition="'$(RuntimeIdentifier)' == 'win-x64'">lib/$(SimpleITKFullName)/SimpleITKCSharpNative.dll</SimpleITKNative>
     <SimpleITKNative Condition="'$(RuntimeIdentifier)' == 'linux-x64'">lib/$(SimpleITKFullName)/libSimpleITKCSharpNative.so</SimpleITKNative>
+
+    <DownloadPath>https://github.com/SimpleITK/SimpleITK/releases/download/latest/$(SimpleITKFullName).zip</DownloadPath>
+    <ZipFile>lib/$(SimpleITKFullName).zip</ZipFile>
   </PropertyGroup>
   
   <ItemGroup>
@@ -37,17 +40,13 @@
       <HintPath>$(SimpleITKManaged)</HintPath>
     </Reference>
   </ItemGroup>
-
-  <Target Name="CheckRID" BeforeTargets="UnzipLibs">
-    <Error Condition="'$(RuntimeIdentifier)' == ''" Text="RID is not set. Please set a RID with -r linux-x64|osx-x64|win-x64" />
-  </Target>
-
+  
   <Target Name="DownloadContentFiles" BeforeTargets="UnzipLibs">
-    <DownloadFile SourceUrl="https://github.com/SimpleITK/SimpleITK/releases/download/latest/$(SimpleITKFullName).zip" DestinationFolder="./lib" />
+    <DownloadFile SourceUrl="$(DownloadPath)" DestinationFolder="./lib" />
   </Target>
 
   <Target Name="UnzipLibs" BeforeTargets="BeforeBuild">
-    <Unzip SourceFiles="lib/$(SimpleITKFullName).zip" DestinationFolder="lib" />
+    <Unzip SourceFiles="$(ZipFile)" DestinationFolder="lib" />
   </Target>
 
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
