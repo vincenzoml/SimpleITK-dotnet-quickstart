@@ -3,34 +3,38 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+    <SelfContained>true</SelfContained>
+    <DebugType>embedded</DebugType>
+    <PublishSingleFile>true</PublishSingleFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SimpleITKVersionString>SimpleITK-2.2.0rc2.post79</SimpleITKVersionString>
+    
     <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Windows'))">win-x64</RuntimeIdentifier>
     <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Linux'))">linux-x64</RuntimeIdentifier>
     <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('OSX'))">osx-x64</RuntimeIdentifier>
+        
+    <SimpleITKArchString Condition="'$(RuntimeIdentifier)' == 'osx-x64'">macosx-10.9-anycpu</SimpleITKArchString>
+    <SimpleITKArchString Condition="'$(RuntimeIdentifier)' == 'win-x64'">win64-x64</SimpleITKArchString>
+    <SimpleITKArchString Condition="'$(RuntimeIdentifier)' == 'linux-x64'">linux</SimpleITKArchString>
     
-    <DebugType>embedded</DebugType>
-    <PublishSingleFile>true</PublishSingleFile>
-    <SelfContained>true</SelfContained>
+    <SimpleITKFullName>$(SimpleITKVersionString)-CSharp-$(SimpleITKArchString)</SimpleITKFullName>
+    
+    <SimpleITKManaged>lib/$(SimpleITKFullName)/SimpleITKCSharpManaged.dll</SimpleITKManaged>
 
-    <SimpleITKVersionString>SimpleITK-2.2.0rc2.post79</SimpleITKVersionString>
-
-    <ArchString Condition="'$(RuntimeIdentifier)' == 'osx-x64'">macosx-10.9-anycpu</ArchString>
-    <ArchString Condition="'$(RuntimeIdentifier)' == 'win-x64'">win64-x64</ArchString>
-    <ArchString Condition="'$(RuntimeIdentifier)' == 'linux-x64'">linux</ArchString>
-    
-    <SimpleITKFullName>$(SimpleITKVersionString)-CSharp-$(ArchString)</SimpleITKFullName>
-    
     <SimpleITKNative Condition="'$(RuntimeIdentifier)' == 'osx-x64'">lib/$(SimpleITKFullName)/libSimpleITKCSharpNative.so</SimpleITKNative>
     <SimpleITKNative Condition="'$(RuntimeIdentifier)' == 'win-x64'">lib/$(SimpleITKFullName)/SimpleITKCSharpNative.dll</SimpleITKNative>
     <SimpleITKNative Condition="'$(RuntimeIdentifier)' == 'linux-x64'">lib/$(SimpleITKFullName)/libSimpleITKCSharpNative.so</SimpleITKNative>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="SimpleITKCSharpManaged">
-      <HintPath>lib/$(SimpleITKFullName)/SimpleITKCSharpManaged.dll</HintPath>
+      <HintPath>$(SimpleITKManaged)</HintPath>
     </Reference>
   </ItemGroup>
 
