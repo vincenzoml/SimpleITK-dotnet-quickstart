@@ -10,17 +10,17 @@
 
   <PropertyGroup>
     <SimpleITKVersionString>SimpleITK-2.2.0rc2.post79</SimpleITKVersionString>
-    
+
     <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Windows'))">win-x64</RuntimeIdentifier>
     <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Linux'))">linux-x64</RuntimeIdentifier>
     <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('OSX'))">osx-x64</RuntimeIdentifier>
-        
+
     <SimpleITKArchString Condition="'$(RuntimeIdentifier)' == 'osx-x64'">macosx-10.9-anycpu</SimpleITKArchString>
     <SimpleITKArchString Condition="'$(RuntimeIdentifier)' == 'win-x64'">win64-x64</SimpleITKArchString>
     <SimpleITKArchString Condition="'$(RuntimeIdentifier)' == 'linux-x64'">linux</SimpleITKArchString>
-    
+
     <SimpleITKFullName>$(SimpleITKVersionString)-CSharp-$(SimpleITKArchString)</SimpleITKFullName>
-    
+
     <SimpleITKManaged>lib/$(SimpleITKFullName)/SimpleITKCSharpManaged.dll</SimpleITKManaged>
 
     <SimpleITKNative Condition="'$(RuntimeIdentifier)' == 'osx-x64'">lib/$(SimpleITKFullName)/libSimpleITKCSharpNative.so</SimpleITKNative>
@@ -28,9 +28,9 @@
     <SimpleITKNative Condition="'$(RuntimeIdentifier)' == 'linux-x64'">lib/$(SimpleITKFullName)/libSimpleITKCSharpNative.so</SimpleITKNative>
 
     <DownloadPath>https://github.com/SimpleITK/SimpleITK/releases/download/latest/$(SimpleITKFullName).zip</DownloadPath>
-    <ZipFile>lib/$(SimpleITKFullName).zip</ZipFile>
+    <ZipName>lib/$(SimpleITKFullName).zip</ZipName>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <Compile Include="Program.fs" />
   </ItemGroup>
@@ -40,13 +40,14 @@
       <HintPath>$(SimpleITKManaged)</HintPath>
     </Reference>
   </ItemGroup>
-  
+
   <Target Name="DownloadContentFiles" BeforeTargets="UnzipLibs">
+    <Message Importance="high" Text="Downloading file $(DownloadPath) to ./lib" />
     <DownloadFile SourceUrl="$(DownloadPath)" DestinationFolder="./lib" />
   </Target>
 
   <Target Name="UnzipLibs" BeforeTargets="BeforeBuild">
-    <Unzip SourceFiles="$(ZipFile)" DestinationFolder="lib" />
+    <Unzip SourceFiles="$(ZipName)" DestinationFolder="lib" />
   </Target>
 
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
@@ -54,7 +55,7 @@
     <Message Importance="High" Text="Copy $(SimpleITKNative) to $(OutDir)"/>
   </Target>
 
-  <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">    
+  <Target Name="CopyCustomContentOnPublish" AfterTargets="Publish">
     <Copy SourceFiles="$(SimpleITKNative)" DestinationFolder="$(PublishDir)" />
   </Target>
 </Project>
