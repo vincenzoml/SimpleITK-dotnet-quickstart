@@ -2,4 +2,4 @@ bin
 lib
 obj
 
-.fake
+fsharp/.fake
