@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <SimpleITKVersionString>SimpleITK-2.2.0rc2.post79</SimpleITKVersionString>
+    <SimpleITKVersionString>SimpleITK-2.2.0rc2.post81</SimpleITKVersionString>
 
     <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Windows'))">win-x64</RuntimeIdentifier>
     <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Linux'))">linux-x64</RuntimeIdentifier>
@@ -24,7 +24,7 @@
 
     <SimpleITKManaged>lib/$(SimpleITKFullName)/SimpleITKCSharpManaged.dll</SimpleITKManaged>
 
-    <SimpleITKNative Condition="'$(RuntimeIdentifier)' == 'osx-x64'">lib/$(SimpleITKFullName)/libSimpleITKCSharpNative.so</SimpleITKNative>
+    <SimpleITKNative Condition="'$(RuntimeIdentifier)' == 'osx-x64'">lib/$(SimpleITKFullName)/libSimpleITKCSharpNative.dylib</SimpleITKNative>
     <SimpleITKNative Condition="'$(RuntimeIdentifier)' == 'win-x64'">lib/$(SimpleITKFullName)/SimpleITKCSharpNative.dll</SimpleITKNative>
     <SimpleITKNative Condition="'$(RuntimeIdentifier)' == 'linux-x64'">lib/$(SimpleITKFullName)/libSimpleITKCSharpNative.so</SimpleITKNative>
 
