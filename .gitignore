@@ -4,3 +4,4 @@ obj
 
 fsharp/.fake
 .fake
+.vscode
