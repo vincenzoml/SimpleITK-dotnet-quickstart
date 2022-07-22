@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <SimpleITKVersionString>SimpleITK-2.2.0rc2.post81</SimpleITKVersionString>
+    <SimpleITKVersionString>SimpleITK-2.2.0rc3.post26</SimpleITKVersionString>
 
     <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Windows'))">win-x64</RuntimeIdentifier>
     <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Linux'))">linux-x64</RuntimeIdentifier>
