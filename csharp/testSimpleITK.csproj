@@ -3,14 +3,14 @@
   
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
   </PropertyGroup>
 
   <PropertyGroup>
-    <SimpleITKVersionString>SimpleITK-2.2.0rc2.post81</SimpleITKVersionString>
+    <SimpleITKVersionString>SimpleITK-2.3.0.dev298</SimpleITKVersionString>
 
     <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Windows'))">win-x64</RuntimeIdentifier>
     <RuntimeIdentifier Condition="$([MSBuild]::IsOSPlatform('Linux'))">linux-x64</RuntimeIdentifier>
